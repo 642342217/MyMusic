@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3133893 */
+  src: url('iconfont.woff2?t=1641890904639') format('woff2'),
+       url('iconfont.woff?t=1641890904639') format('woff'),
+       url('iconfont.ttf?t=1641890904639') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sousuo:before {
+  content: "\e600";
+}
+
+.icon-wangyiyunyinle:before {
+  content: "\e675";
+}
+

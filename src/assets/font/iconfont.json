@@ -1,0 +1,23 @@
+{
+  "id": "3133893",
+  "name": "网易云",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "17816858",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "25663423",
+      "name": "网易云音乐",
+      "font_class": "wangyiyunyinle",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    }
+  ]
+}
