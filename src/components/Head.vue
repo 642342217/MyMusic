@@ -11,13 +11,15 @@
           <div><router-link to="">个人中心</router-link></div>
       </div>
       <div class="input"><input type="text" v-model="search" placeholder="周杰伦"></div>
-      <div class="login" @click="login"><a>登录/注册</a></div>
+      <div class="login" @click="login" v-if="! $store.state.hasLogined"><a>登录/注册</a></div>
+      <div class="login" @click="logout" v-else><a>退出登录</a></div>
       <i class="searchInfo iconfont"><router-link to="">&#xe600;</router-link></i>
     <Login v-show="isShow"></Login>
   </div>
 </template>
 
 <script>
+import api from '../api/index'
 import Login from '../components/Login.vue'
 export default {
     name:"Head",
@@ -30,6 +32,14 @@ export default {
     methods: {
         login(){
             this.$store.commit('changeShowLoginBox', true);
+        },
+        async logout(){
+            let {data} = await api.logout();
+            if(data.code === 200) {
+                this.$store.commit("changeLoginStatus", false);
+            }else {
+                return alert("data.msg");
+            }
         }
     },
     computed:{

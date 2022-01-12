@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import api from '../api/index'
 export default {
     data() {
         return {
@@ -26,8 +27,15 @@ export default {
         this.$store.commit('changeShowLoginBox', false);
       },
       // 登录,发送请求
-      login(){
-
+      async login(){
+        let {data} = await api.phoneLogin(this.phone, this.psw);
+        //密码不正确
+        if(data.code !== 200) {
+          return alert(data.msg);
+        }else {
+          this.$store.commit('changeLoginStatus', true);
+          this.$store.commit('changeShowLoginBox', false);
+        }
       }
     },
 }
