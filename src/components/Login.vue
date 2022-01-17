@@ -9,6 +9,14 @@
       <div><input type="password" placeholder="请输入密码" v-model="psw"></div>
       <div class="loginButton" @click="login">登录</div>
     </div>
+
+    <!-- 密码错误提示框 -->
+    <v-alert
+      color="#242424"
+      dense
+      type="info"
+      :value="pswIsTrue"
+    >密码错误！</v-alert>
   </div>
 </template>
 
@@ -19,6 +27,7 @@ export default {
         return {
             phone: '',
             psw: '',
+            pswIsTrue: false,
         }
     },
     methods: {
@@ -31,7 +40,10 @@ export default {
         let {data} = await api.phoneLogin(this.phone, this.psw);
         //密码不正确
         if(data.code !== 200) {
-          return alert(data.msg);
+          this.pswIsTrue = true;
+          setTimeout(() => {
+            this.pswIsTrue = false;
+          }, 1000);
         }else {
           this.$store.commit('changeLoginStatus', true);
           this.$store.commit('changeShowLoginBox', false);
@@ -43,6 +55,7 @@ export default {
 
 <style lang="less" scoped>
   .loginBox{
+    z-index: 1;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -50,6 +63,13 @@ export default {
     height: 273px;
     transform: translateX(-50%) translateY(50%);
     border: solid 0.1px #242424;
+    background-color: white;
+    .v-alert{
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     .header{
       line-height: 38px;
       height: 38px;
@@ -85,6 +105,8 @@ export default {
         height: 30px;
         margin: 20px 0; 
         input{
+          padding-left: 5px;
+          border: solid 1px #242424;
           margin-bottom: 10px;
           outline: none;
           border-radius: 15px;
@@ -94,4 +116,5 @@ export default {
       }
     }
   }
+
 </style>

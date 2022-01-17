@@ -1,10 +1,12 @@
 <template>
-  <div id="app">
+  <v-app>
+    <div id="app">
     <Head></Head>
     <div class="content">
       <Content></Content>
     </div>
   </div>
+  </v-app>
 </template>
 
 <script>
