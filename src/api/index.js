@@ -5,7 +5,9 @@ import {
     login,
     logout,
     recommendSong,
-    songUrl
+    songUrl,
+    loginStatus,
+    hotSonger,
 } from './config.js'
 
 //设置请求超时时间
@@ -13,7 +15,6 @@ axios.defaults.timeout = 30000;
 
 // 请求通用url
 axios.defaults.baseURL = "http://localhost:3000";
-axios.defaults.withCredentials = true;
 
 export default {
     // 手机号码+密码登录
@@ -44,5 +45,17 @@ export default {
     //获取推荐音乐
     getRecommendSong() {
         return axios.get(recommendSong);
+    },
+    //获取登录状态
+    getLoginStatus() {
+        return axios.get(loginStatus);
+    },
+    //获取当前热门歌手
+    getHotSonger() {
+        return axios.get(hotSonger, {
+            params: {
+                limit: 10
+            }
+        })
     }
 }

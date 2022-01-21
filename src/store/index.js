@@ -11,6 +11,7 @@ const state = {
   audioObj: {},//音乐播放器
   isPlay: false,//音乐播放器播放状态
   playSongUrl: '',//当前播放音乐的url
+  hotSongerInfo: [],//热门歌手信息
 };
 
 const actions = {
@@ -49,6 +50,10 @@ const mutations = {
   //设置当前播放音乐的url
   setPlaySongUrl(state, url) {
     state.playSongUrl = url;
+  },
+  //接收热门歌手信息
+  receiveHotSongerInfo(state, data) {
+    state.hotSongerInfo = data;
   }
 };
 
@@ -68,6 +73,10 @@ const getters = {
   },
   getPlaySongUrl(state) {
     return state.playSongUrl;
+  },
+  //获取热门歌手信息
+  getHotSongerInfo(state) {
+    return state.hotSongerInfo;
   }
 }
 

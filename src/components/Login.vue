@@ -44,7 +44,10 @@ export default {
           setTimeout(() => {
             this.pswIsTrue = false;
           }, 1000);
-        }else {
+        } else {
+          let token = data.token;
+          let date = new Date().getTime();
+          window.localStorage.setItem('token', JSON.stringify({'value': token, 'date': date}));
           this.$store.commit('changeLoginStatus', true);
           this.$store.commit('changeShowLoginBox', false);
         }

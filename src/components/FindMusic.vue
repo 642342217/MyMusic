@@ -19,6 +19,7 @@
         </div>
         <div class="content">
             <HotRecommend/>
+            <HotSonger/>
         </div>
       </div>
 
@@ -27,9 +28,10 @@
 
 <script>
 import HotRecommend from './HotRecommend'
+import HotSonger from './HotSonger'
 import api from '../api/index'
 export default {
-    components:{HotRecommend},
+    components:{ HotRecommend, HotSonger},
     data() {
         return {
             pics: [],

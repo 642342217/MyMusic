@@ -46,7 +46,10 @@ export default {
         isShow(){
             return this.$store.state.isShowLoginBox;
         }
-    }
+    },
+    created() {
+
+    },
 }
 </script>
 

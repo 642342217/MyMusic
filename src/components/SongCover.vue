@@ -20,11 +20,6 @@ export default {
         }
     },
     methods: {
-        //获取音乐url
-        async getSongUrl() {
-            let {data} = await api.getSongUrl(this.id);
-            this.songUrl = data.data[0].url;
-        },
         // 播放音乐
         playSong() {
             this.$store.commit('playSong', this.songUrl);
@@ -61,8 +56,10 @@ export default {
             }
         }
     },
-    created() {
-        this.getSongUrl();
+    async created() {
+        //获取音乐url
+        let {data} = await api.getSongUrl(this.id);
+        this.songUrl = data.data[0].url;
     },
 }
 

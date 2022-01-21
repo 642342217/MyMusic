@@ -14,7 +14,6 @@ import Content from './components/Content.vue'
 import Head from './components/Head'
 export default {
   name:"App",
-  el:"#app",
   components:{Head, Content},
   data() {
     return {
