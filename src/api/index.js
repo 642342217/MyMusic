@@ -8,6 +8,8 @@ import {
     songUrl,
     loginStatus,
     hotSonger,
+    topSongOfSonger,
+    detailOfArtist,
 } from './config.js'
 
 //设置请求超时时间
@@ -55,6 +57,22 @@ export default {
         return axios.get(hotSonger, {
             params: {
                 limit: 10
+            }
+        })
+    },
+    //获取歌手热门歌曲
+    getTopSongOfSonger(id) {
+        return axios.get(topSongOfSonger, {
+            params: {
+                id: id
+            }
+        })
+    },
+    //获取歌手详情
+    getDetailOfSonger(id) {
+        return axios.get(detailOfArtist, {
+            params: {
+                id: id
             }
         })
     }

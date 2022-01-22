@@ -5,7 +5,8 @@
             <div class="more">更多</div>
         </div>
         <div class="songerBox">
-            <SongerCover v-for="artist in artists" :key="artist.id" :name="artist.name" :imgUrl="artist.imgUrl"></SongerCover>
+            <SongerCover v-for="artist in artists" :key="artist.id" :id="artist.id"
+            :name="artist.name" :imgUrl="artist.imgUrl"></SongerCover>
         </div>
     </div>
 </template>

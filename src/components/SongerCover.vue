@@ -1,18 +1,18 @@
 <template>
   <div class="songer">
-      <img :src="imgUrl" :alt="name">
-      <p>{{name}}</p>
+      <img :src="imgUrl" :alt="name" @click="toSonger">
+      <p @click="toSonger">{{name}}</p>
   </div>
 </template>
 
 <script>
 export default {
-    props:['name', 'imgUrl'],
-    data() {
-        return {
-
+    props:['name', 'imgUrl', 'id'],
+    methods: {
+        toSonger() {
+            this.$router.push({ path: 'artist', query: { id: this.id }});
         }
-    }
+    },
 }
 </script>
 

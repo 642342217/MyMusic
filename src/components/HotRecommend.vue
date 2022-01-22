@@ -5,7 +5,8 @@
             <div class="more">更多</div>
         </div>
         <div class="songBox">
-            <SongCover v-for="song in songInfo" :key="song.id" :id="song.id" :name="song.name" :picUrl="song.picUrl"></SongCover>
+            <SongCover v-for="song in songInfo" :key="song.id" :id="song.id" 
+            :name="song.name" :picUrl="song.picUrl"></SongCover>
         </div>
     </div>
 </template>
