@@ -7,3 +7,9 @@ export const loginStatus = '/login/status';//获取登录状态
 export const hotSonger = '/top/artists';//获取热门歌手
 export const topSongOfSonger =  '/artist/top/song';//获取歌手热门歌曲
 export const detailOfArtist = '/artist/detail';//获取歌手详情
+export const detailOfSong = '/song/detail';//获取歌曲详情
+export const lyric = '/lyric';//获取歌词
+export const commentOfSong = '/comment/music';//获取歌曲评论
+export const sendComment = '/comment?t=1&type=0';//歌曲-发送评论
+export const replyComment = '/comment?t=2&type=0';//歌曲-回复评论
+export const like = '/comment/like?type=0';//给歌曲评论点赞

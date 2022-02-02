@@ -10,6 +10,12 @@ import {
     hotSonger,
     topSongOfSonger,
     detailOfArtist,
+    detailOfSong,
+    lyric,
+    commentOfSong,
+    sendComment,
+    replyComment,
+    like,
 } from './config.js'
 
 //设置请求超时时间
@@ -17,6 +23,8 @@ axios.defaults.timeout = 30000;
 
 // 请求通用url
 axios.defaults.baseURL = "http://localhost:3000";
+//请求携带cookie
+axios.defaults.withCredentials = true
 
 export default {
     // 手机号码+密码登录
@@ -73,6 +81,59 @@ export default {
         return axios.get(detailOfArtist, {
             params: {
                 id: id
+            }
+        })
+    },
+    //获取歌曲详情
+    getDetailOfSong(id) {
+        return axios.get(detailOfSong, {
+            params: {
+                ids: id
+            }
+        })
+    },
+    //获取歌词
+    getLyric(id) {
+        return axios.get(lyric, {
+            params: {
+                id: id
+            }
+        })
+    },
+    //获取歌曲评论，这里取默认值，取出20条评论
+    getCommentOfSong(id) {
+        return axios.get(commentOfSong, {
+            params: {
+                id: id
+            }
+        })
+    },
+    //发送歌曲评论
+    sendCommentOfSong(id, content) {
+        return axios.get(sendComment, {
+            params: {
+                id: id,
+                content: content
+            }
+        })
+    },
+    //回复歌曲评论
+    replyCommentOfSong(id, content, commentId) {
+        return axios.get(replyComment, {
+            params: {
+                id: id,
+                content: content,
+                commentId: commentId
+            }
+        })
+    },
+    //给歌曲评论点赞，id为歌曲id，cid为评论id，t：0取消点赞，1：点赞
+    likeCommentOfSong(id, cid, t) {
+        return axios.get(like, {
+            params: {
+                id: id,
+                cid: cid,
+                t: t
             }
         })
     }

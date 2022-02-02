@@ -7,14 +7,14 @@
 <script>
 import api from '../api/index'
 export default {
-  async created() {
-    let {data} = await api.getLoginStatus();
-    console.log(data);
-    if(data.data.account !== null) {
-      console.log(data.data.account);
+  created() {
+    api.getLoginStatus().then(data => {
+      if(data.data.data.account !== null) {
       this.$store.commit('changeLoginStatus', true);
       this.$store.commit('changeShowLoginBox', false);
     }
+    });
+    
   },
 }
 </script>

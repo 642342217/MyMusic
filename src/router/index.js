@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import FindMusic from '../components/FindMusic'
 import Songer from '../components/Songer'
+import SongDetail from '../components/SongDetail'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,10 @@ const routes = [
     path: '/artist',
     name: 'artist',
     component: Songer
+  },
+  {
+    path: '/songdetail',
+    component: SongDetail,
   }
 ]
 

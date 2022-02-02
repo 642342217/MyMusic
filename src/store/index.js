@@ -12,6 +12,7 @@ const state = {
   isPlay: false,//音乐播放器播放状态
   playSongUrl: '',//当前播放音乐的url
   hotSongerInfo: [],//热门歌手信息
+  playingSongId: '',//歌手Top50正在播放音乐的ID
 };
 
 const actions = {
@@ -54,6 +55,10 @@ const mutations = {
   //接收热门歌手信息
   receiveHotSongerInfo(state, data) {
     state.hotSongerInfo = data;
+  },
+  //设置歌手Top50正在播放音乐Id
+  setPlayingSongId(state, id) {
+    state.playingSongId = id;
   }
 };
 
@@ -77,6 +82,10 @@ const getters = {
   //获取热门歌手信息
   getHotSongerInfo(state) {
     return state.hotSongerInfo;
+  },
+  //歌手Top50音乐界面，获取正在播放的音乐
+  getIdOfSong(state) {
+    return state.playingSongId;
   }
 }
 

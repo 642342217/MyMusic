@@ -6,5 +6,5 @@ Vue.use(Vuetify);
 export default new Vuetify({
     Alerts: true,
     Carousel: true,
-
+    Diologs: true,
 });
