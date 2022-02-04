@@ -26,14 +26,14 @@
             <div class="hotComments">精彩评论</div>
             <Comment v-for="comment in hotComments" :key="comment.commentId" :beReplied="comment.beReplied"
             :content="comment.content" :liked="comment.liked" :likedCount="comment.likedCount"
-            :user="comment.user" :timeStr="comment.timeStr"></Comment>
+            :user="comment.user" :timeStr="comment.timeStr" :commentId="comment.commentId"></Comment>
             <div class="latestComments">最新评论</div>
             <Comment v-for="comment in latestComments" :key="comment.commentId" :beReplied="comment.beReplied"
             :content="comment.content" :liked="comment.liked" :likedCount="comment.likedCount"
-            :user="comment.user" :timeStr="comment.timeStr"></Comment>
+            :user="comment.user" :timeStr="comment.timeStr" :commentId="comment.commentId"></Comment>
       </div>
       <v-alert type="success" :value="success">发表评论成功！</v-alert>
-      <v-alert type="info" v-model="info" dismissible><h5>{{helpInfo}}</h5></v-alert>
+      <v-alert type="info" v-model="info" dismissible><h5 @click="vetifyByCaptcha">{{helpInfo}}</h5></v-alert>
   </div>
 </template>
 
@@ -113,6 +113,11 @@ export default {
             let { data } = await api.getCommentOfSong(this.$route.query.id);
             this.latestComments = data.comments;
             this.hotComments = data.hotComments;
+        },
+        //短信验证
+        vetifyByCaptcha() {
+            this.$bus.$emit('vetifyByCaptcha', '');
+            this.info = false;
         }
     },
     watch: {
@@ -126,6 +131,14 @@ export default {
         this.getLyric();
         this.getComments();
     },
+    mounted() {
+        this.$bus.$on('updateComments', () => {
+            this.getComments();
+        });
+    },
+    beforeDestroy() {
+        this.$bus.$off('updateComments');
+    },
     components: { Comment }
 }
 </script>
@@ -137,6 +150,12 @@ export default {
             top: 50%;
             left: 50%;
             transform: translateX(-50%) translateY(-50%);
+            h5{
+                cursor: pointer;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
         }
         margin: 0 auto;
         width: 64vw;

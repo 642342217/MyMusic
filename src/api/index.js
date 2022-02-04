@@ -16,6 +16,8 @@ import {
     sendComment,
     replyComment,
     like,
+    sendCaptcha,
+    loginByCaptcha,
 } from './config.js'
 
 //设置请求超时时间
@@ -134,6 +136,23 @@ export default {
                 id: id,
                 cid: cid,
                 t: t
+            }
+        })
+    },
+    //发送验证码
+    sendCaptcha(phone) {
+        return axios.get(sendCaptcha, {
+            params: {
+                phone: phone
+            }
+        })
+    },
+    //验证验证码登录
+    loginByCaptcha(phone, captcha) {
+        return axios.get(loginByCaptcha, {
+            params: {
+                phone,
+                captcha
             }
         })
     }

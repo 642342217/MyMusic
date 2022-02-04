@@ -1,4 +1,6 @@
 export const login = '/login/cellphone';//手机号码+密码登录
+export const sendCaptcha = '/captcha/sent';//发送验证码
+export const loginByCaptcha = '/captcha/verify';//验证验证码登录
 export const logout = '/logout';//退出登录
 export const carousels = '/banner?type=0';//获取轮播图
 export const songUrl = '/song/url';//获取已知id音乐的url

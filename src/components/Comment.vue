@@ -9,7 +9,7 @@
         <div class="footer">
           <div class="time">{{timeStr}}</div>
           <div class="liked-reply">
-            <i :class="{ liked: liked, iconfont: true }">&#xec7f;</i>
+            <i :class="{ liked: liked, iconfont: true }" @click="like">&#xec7f;</i>
             <span class="likedCount" v-if="likedCount > 0 ? true : false">({{likedCount}})</span>
             <span> | </span>
             <span class="reply-content">回复</span>
@@ -20,24 +20,40 @@
 </template>
 
 <script>
+import api from '../api/index'
 export default {
-  props: ['user', 'content', 'beReplied', 'likedCount', 'timeStr', 'liked'],
+  props: ['user', 'content', 'beReplied', 'likedCount', 'timeStr', 'liked', 'commentId'],
   data() {
     return {
       
     }
   },
   methods: {
-    
+    like() {
+      if(this.liked) {
+        api.likeCommentOfSong(this.$route.query.id, this.commentId, 0);
+        // this.liked = !this.liked;
+        // this.likedCount --;
+      } else {
+        let data = api.likeCommentOfSong(this.$route.query.id, this.commentId, 1);
+        // this.liked = !this.liked;
+        // this.likedCount ++;
+        console.log(data);
+        console.log(this.liked);
+      }
+      this.$bus.$emit('updateComments', '');
+    }
   },
   computed: {
     contents() {
       return this.content.replace('/n', '');
     }
   },
-  created() {
-
-  },
+  updated() {
+    console.log('updated');
+    console.log(this.liked);
+    console.log(this.content);
+  }
 }
 </script>
 

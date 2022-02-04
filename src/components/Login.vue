@@ -6,8 +6,10 @@
     </div>
     <div class="content">
       <div><input type="text" placeholder="请输入手机号码" v-model="phone"></div>
-      <div><input type="password" placeholder="请输入密码" v-model="psw"></div>
+      <div v-if="loginByPsw"><input type="password" placeholder="请输入密码" v-model="psw"></div>
+      <div v-else><input type="text" placeholder="请输入验证码" v-model="captcha" class="captcha"><button @click="sendCaptcha">{{sendStatus}}</button></div>
       <div class="loginButton" @click="login">登录</div>
+      <div class="otherLoginWay" @click="loginByPsw = !loginByPsw">选择其它登录方式</div>
     </div>
 
     <!-- 密码错误提示框 -->
@@ -16,7 +18,7 @@
       dense
       type="info"
       :value="pswIsTrue"
-    >密码错误！</v-alert>
+    >信息有误！</v-alert>
   </div>
 </template>
 
@@ -28,6 +30,9 @@ export default {
             phone: '',
             psw: '',
             pswIsTrue: false,
+            captcha: '',//验证码
+            loginByPsw: true,
+            sendStatus: '发送验证码'
         }
     },
     methods: {
@@ -37,21 +42,43 @@ export default {
       },
       // 登录,发送请求
       async login(){
-        let {data} = await api.phoneLogin(this.phone, this.psw);
-        //密码不正确
-        if(data.code !== 200) {
-          this.pswIsTrue = true;
-          setTimeout(() => {
-            this.pswIsTrue = false;
-          }, 1000);
+        if(this.loginByPsw) {
+          let {data} = await api.phoneLogin(this.phone, this.psw);
+          //密码不正确
+          if(data.code !== 200) {
+            this.pswIsTrue = true;
+            setTimeout(() => {
+              this.pswIsTrue = false;
+            }, 1000);
+          } else {
+            this.$store.commit('changeLoginStatus', true);
+            this.$store.commit('changeShowLoginBox', false);
+          }
         } else {
-          let token = data.token;
-          let date = new Date().getTime();
-          window.localStorage.setItem('token', JSON.stringify({'value': token, 'date': date}));
-          this.$store.commit('changeLoginStatus', true);
-          this.$store.commit('changeShowLoginBox', false);
+          let { data } = await api.loginByCaptcha(this.phone, this.captcha);
+          if(data.data === true) {
+            this.$store.commit('changeLoginStatus', true);
+            this.$store.commit('changeShowLoginBox', false);
+          } else {
+            this.pswIsTrue = true;
+            setTimeout(() => {
+              this.pswIsTrue = false;
+            }, 1000);
+          }
         }
+      },
+      //发送验证码
+      sendCaptcha() {
+        this.sendStatus = '已发送';
+        api.sendCaptcha(this.phone);
       }
+    },
+    mounted() {
+      this.$bus.$on('vetifyByCaptcha', () => {
+        this.loginByPsw = false;
+        this.login();
+        this.$store.commit('changeShowLoginBox', true);
+      })
     },
 }
 </script>
@@ -59,12 +86,12 @@ export default {
 <style lang="less" scoped>
   .loginBox{
     z-index: 1;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     width: 528px;
     height: 273px;
-    transform: translateX(-50%) translateY(50%);
+    transform: translateX(-50%) translateY(-50%);
     border: solid 0.1px #242424;
     background-color: white;
     .v-alert{
@@ -112,10 +139,25 @@ export default {
           border: solid 1px #242424;
           margin-bottom: 10px;
           outline: none;
-          border-radius: 15px;
           width: 100%;
           height: 100%;
         }
+        .captcha{
+          width: 60%;
+        }
+        button{
+          width: 40%;
+          height: 100%;
+          border: solid 1px #242424;
+        }
+      }
+      .otherLoginWay{
+            position: absolute;
+            font-size: small;
+            left: 420px;
+            bottom: -20px;
+            text-decoration: underline;
+            cursor: pointer;
       }
     }
   }
