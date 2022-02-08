@@ -18,7 +18,7 @@
             <div class="comment-header">评论</div>
             <div class="my-comment">
                 <div class="txt">
-                    <textarea id="comment" placeholder="评论" v-model="inputValue"></textarea>
+                    <textarea id="comment" placeholder="评论" v-model="inputValue" @click="vetifyStatus"></textarea>
                 </div>
                 <div class="btn" @click="sendComment">评论</div>
                 <div :class="{ txt_number: true, warn: number >= 0 ? false : true }">{{number}}</div>
@@ -99,9 +99,7 @@ export default {
                     }, 1000);
                 } else {
                     this.helpInfo = value.data.data.dialog.subtitle;
-                    console.log(this.helpInfo);
                     this.info = true;
-                    console.log(this.info);
                 }
                 
             }, reason => {
@@ -118,6 +116,13 @@ export default {
         vetifyByCaptcha() {
             this.$bus.$emit('vetifyByCaptcha', '');
             this.info = false;
+        },
+        //查询用户是否已经登录
+        async vetifyStatus() {
+            let { data } = await api.getLoginStatus();
+            if(data.data.account === null) {
+                this.$store.commit('changeShowLoginBox', true);
+            }
         }
     },
     watch: {

@@ -56,7 +56,7 @@ export default {
           }
         } else {
           let { data } = await api.loginByCaptcha(this.phone, this.captcha);
-          if(data.data === true) {
+          if(data.code === 200) {
             this.$store.commit('changeLoginStatus', true);
             this.$store.commit('changeShowLoginBox', false);
           } else {

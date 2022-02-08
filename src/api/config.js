@@ -1,6 +1,5 @@
 export const login = '/login/cellphone';//手机号码+密码登录
 export const sendCaptcha = '/captcha/sent';//发送验证码
-export const loginByCaptcha = '/captcha/verify';//验证验证码登录
 export const logout = '/logout';//退出登录
 export const carousels = '/banner?type=0';//获取轮播图
 export const songUrl = '/song/url';//获取已知id音乐的url
@@ -15,3 +14,4 @@ export const commentOfSong = '/comment/music';//获取歌曲评论
 export const sendComment = '/comment?t=1&type=0';//歌曲-发送评论
 export const replyComment = '/comment?t=2&type=0';//歌曲-回复评论
 export const like = '/comment/like?type=0';//给歌曲评论点赞
+export const search = '/search';//搜索

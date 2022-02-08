@@ -12,7 +12,7 @@
             <i :class="{ liked: liked, iconfont: true }" @click="like">&#xec7f;</i>
             <span class="likedCount" v-if="likedCount > 0 ? true : false">({{likedCount}})</span>
             <span> | </span>
-            <span class="reply-content">回复</span>
+            <span class="reply-content" @click="vetifyStatus">回复</span>
           </div>
         </div>
       </div>
@@ -29,31 +29,32 @@ export default {
     }
   },
   methods: {
-    like() {
-      if(this.liked) {
-        api.likeCommentOfSong(this.$route.query.id, this.commentId, 0);
-        // this.liked = !this.liked;
-        // this.likedCount --;
-      } else {
-        let data = api.likeCommentOfSong(this.$route.query.id, this.commentId, 1);
-        // this.liked = !this.liked;
-        // this.likedCount ++;
-        console.log(data);
-        console.log(this.liked);
+    async like() {
+      let { data } = await api.getLoginStatus();
+      if(data.data.account === null) {
+          return this.$store.commit('changeShowLoginBox', true);
       }
-      this.$bus.$emit('updateComments', '');
+      if(this.liked) {
+        await api.likeCommentOfSong(this.$route.query.id, this.commentId, 0);
+        this.$bus.$emit('updateComments', '');
+      } else {
+        await api.likeCommentOfSong(this.$route.query.id, this.commentId, 1);
+        this.$bus.$emit('updateComments', '');
+      }
+    },
+    //查询用户是否已经登录
+    async vetifyStatus() {
+        let { data } = await api.getLoginStatus();
+        if(data.data.account === null) {
+            this.$store.commit('changeShowLoginBox', true);
+        }
     }
-  },
-  computed: {
-    contents() {
-      return this.content.replace('/n', '');
+    },
+    computed: {
+      contents() {
+        return this.content.replace('/n', '');
+      }
     }
-  },
-  updated() {
-    console.log('updated');
-    console.log(this.liked);
-    console.log(this.content);
-  }
 }
 </script>
 

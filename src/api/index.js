@@ -17,7 +17,7 @@ import {
     replyComment,
     like,
     sendCaptcha,
-    loginByCaptcha,
+    search,
 } from './config.js'
 
 //设置请求超时时间
@@ -104,9 +104,11 @@ export default {
     },
     //获取歌曲评论，这里取默认值，取出20条评论
     getCommentOfSong(id) {
+        let date = new Date();
         return axios.get(commentOfSong, {
             params: {
-                id: id
+                id: id,
+                timestamp: date
             }
         })
     },
@@ -121,38 +123,56 @@ export default {
     },
     //回复歌曲评论
     replyCommentOfSong(id, content, commentId) {
+        let date = new Date();
         return axios.get(replyComment, {
             params: {
                 id: id,
                 content: content,
-                commentId: commentId
+                commentId: commentId,
+                timestamp: date
             }
         })
     },
     //给歌曲评论点赞，id为歌曲id，cid为评论id，t：0取消点赞，1：点赞
     likeCommentOfSong(id, cid, t) {
+        let date = new Date();
         return axios.get(like, {
             params: {
                 id: id,
                 cid: cid,
-                t: t
+                t: t,
+                timestamp: date
             }
         })
     },
     //发送验证码
     sendCaptcha(phone) {
+        let date = new Date();
         return axios.get(sendCaptcha, {
             params: {
-                phone: phone
+                phone: phone,
+                timestamp: date
             }
         })
     },
     //验证验证码登录
     loginByCaptcha(phone, captcha) {
-        return axios.get(loginByCaptcha, {
+        let date = new Date();
+        return axios.get(login, {
             params: {
                 phone,
-                captcha
+                captcha,
+                timestamp: date
+            }
+        })
+    },
+    //搜索
+    search(keyWords) {
+        let date = new Date();
+        return axios.get(search, {
+            params: {
+                keywords: keyWords,
+                timestamp: date
             }
         })
     }
