@@ -1,22 +1,29 @@
 <template>
     <div class="main">
-        <div class="song_cover" :style="background">
-            <div class="mask">
+        <div class="song_cover" :style="background" @click="toDetailPage">
+            <div class="mask" v-if="page === 'findmusic'">
                 <div :class="playOrPause" @click="playOrPauseSong"></div>
             </div>
         </div>
-        <div class="song_name">{{name}}</div>
+        <div class="song_name" @mouseenter="showAll(event)" @mouseleave="showAllName = !showAllName"
+        @click="toDetailPage">{{name}}</div>
+        <div @click="toCreator" v-if="page === 'playlist'"><slot name="creator" class="slot"></slot></div>
+        <span class="allName" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showAllName">{{name}}</span>
     </div>
 </template>
 
 <script>
 import api from '../api/index'
 export default {
-    props: ['id', 'name', 'picUrl'],    
+    props: ['id', 'name', 'picUrl', 'userId'],    
     data() {
         return {
             background: {background: `url(${this.picUrl})`},
             songUrl: '',
+            showAllName: false,
+            x: '',
+            y: '',
+            page: ''
         }
     },
     methods: {
@@ -39,6 +46,28 @@ export default {
             } else {
                 this.playSong();
             }
+        },
+        //展示全称
+        showAll(event) {
+            let e = event || window.event;
+            let scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+            let scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+            let x = e.pageX || e.clientX + scrollX;
+            let y = e.pageY || e.clientY + scrollY;
+            this.x = x + 10;
+            this.y = y + 15;
+            this.showAllName = !this.showAllName
+        },
+        //跳转至具体页面
+        toDetailPage() {
+            if(window.location.hash !== '#/findmusic') {
+                this.$router.push({ path: '/playlist-detail', query: { id: this.id }} );
+                console.log(123123);
+            }
+        },
+        //跳转至歌单创建者
+        toCreator() {
+            this.$router.push({ path: '/user', query: { id: this.userId }} );
         }
     },
     computed:{
@@ -58,9 +87,20 @@ export default {
     },
     async created() {
         //获取音乐url
-        let {data} = await api.getSongUrl(this.id);
-        this.songUrl = data.data[0].url;
+        if(window.location.hash === '#/findmusic') {
+            let {data} = await api.getSongUrl(this.id);
+            this.songUrl = data.data[0].url;
+        }
     },
+    beforeMount() {
+        if(window.location.hash === '#/findmusic') {
+            this.page = 'findmusic';
+        } else if(window.location.hash === '#/playlist') {
+            this.page = 'playlist';
+        } else {
+            this.page = 'user';
+        }
+    }
 }
 
 </script>
@@ -113,16 +153,19 @@ export default {
             }
         }
         .song_name{
-            display: inline-block;
             width: @width;
-            text-overflow: ellipsis;
             overflow: hidden;
-            height: 20px;
             white-space: nowrap;
+            text-overflow: ellipsis;
+            height: 20px;
             &:hover{
                 text-decoration: underline;
                 cursor: pointer;
             }
+        }
+        .allName{
+            background-color: #fff;
+            border: solid 1px #242424;
         }
     }
     

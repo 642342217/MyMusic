@@ -86,6 +86,10 @@ const getters = {
   //歌手Top50音乐界面，获取正在播放的音乐
   getIdOfSong(state) {
     return state.playingSongId;
+  },
+  //登录状态
+  getLoginStatus(state) {
+    return state.hasLogined;
   }
 }
 

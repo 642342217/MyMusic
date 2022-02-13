@@ -38,10 +38,15 @@ export default {
     methods: {
       //关闭登录框，取消登录
       closeLoginBox(){
+        // 若是经由路由拦截的，取消登录后，跳转至原来界面
+        if(this.$route.params.redirect) {
+          this.$router.back(-1);
+        }
         this.$store.commit('changeShowLoginBox', false);
       },
       // 登录,发送请求
       async login(){
+        //通过手机号+密码的方式登录
         if(this.loginByPsw) {
           let {data} = await api.phoneLogin(this.phone, this.psw);
           //密码不正确
@@ -53,12 +58,25 @@ export default {
           } else {
             this.$store.commit('changeLoginStatus', true);
             this.$store.commit('changeShowLoginBox', false);
+            // 若是经由路由拦截的，鉴权成功后，跳转至目的界面
+            if(this.$route.params.redirect) {
+              this.$router.push({
+                path: this.$route.params.redirect
+              })
+            }
           }
         } else {
+          // 通过手机号码+验证码的方式登录
           let { data } = await api.loginByCaptcha(this.phone, this.captcha);
           if(data.code === 200) {
             this.$store.commit('changeLoginStatus', true);
             this.$store.commit('changeShowLoginBox', false);
+            // 若是经由路由拦截的，鉴权成功后，跳转至目的界面
+            if(this.$route.params.redirect) {
+              this.$router.push({
+                path: this.$route.params.redirect
+              })
+            }
           } else {
             this.pswIsTrue = true;
             setTimeout(() => {
@@ -79,7 +97,7 @@ export default {
         this.login();
         this.$store.commit('changeShowLoginBox', true);
       })
-    },
+    }
 }
 </script>
 

@@ -18,6 +18,12 @@ import {
     like,
     sendCaptcha,
     search,
+    playlists,
+    detailOfPlayList,
+    songsOfPlayList,
+    userDetail,
+    follow,
+    playlistOfUser,
 } from './config.js'
 
 //设置请求超时时间
@@ -173,6 +179,53 @@ export default {
             params: {
                 keywords: keyWords,
                 timestamp: date
+            }
+        })
+    },
+    //获取歌单
+    getPlayLists() {
+        return axios.get(playlists);
+    },
+    //获取歌单详情
+    getDetailOfPlayList(id) {
+        return axios.get(detailOfPlayList, {
+            params: {
+                id
+            }
+        })
+    },
+    //获取歌单所有歌曲
+    getSongsOfPlayList(id) {
+        return axios.get(songsOfPlayList, {
+            params: {
+                id
+            }
+        })
+    },
+    // 获取用户详情信息
+    getUserDetail(id) {
+        let date = new Date();
+        return axios.get(userDetail, {
+            params: {
+                uid: id,
+                timestamp: date
+            }
+        })
+    },
+    //关注/取消关注用户，t：1为关注，其它为取消
+    followUser(id, t) {
+        return axios.get(follow, {
+            params: {
+                id,
+                t
+            }
+        })
+    },
+    // 获取用户歌单
+    getPlayListsOfUser(uid) {
+        return axios.get(playlistOfUser, {
+            params: {
+                uid
             }
         })
     }

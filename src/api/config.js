@@ -15,3 +15,9 @@ export const sendComment = '/comment?t=1&type=0';//歌曲-发送评论
 export const replyComment = '/comment?t=2&type=0';//歌曲-回复评论
 export const like = '/comment/like?type=0';//给歌曲评论点赞
 export const search = '/search';//搜索
+export const playlists = '/top/playlist?limit=30';//获取歌单
+export const detailOfPlayList = '/playlist/detail';//获取歌单详情
+export const songsOfPlayList = '/playlist/track/all';//获取歌单所有歌曲
+export const userDetail = '/user/detail';//获取用户详情信息
+export const follow = '/follow';//关注/取消关注用户
+export const playlistOfUser = '/user/playlist';//获取用户歌单

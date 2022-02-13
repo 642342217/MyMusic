@@ -23,11 +23,11 @@
                 <div class="btn" @click="sendComment">评论</div>
                 <div :class="{ txt_number: true, warn: number >= 0 ? false : true }">{{number}}</div>
             </div>
-            <div class="hotComments">精彩评论</div>
+            <div class="hotComments" v-if="hotComments.length > 0">精彩评论</div>
             <Comment v-for="comment in hotComments" :key="comment.commentId" :beReplied="comment.beReplied"
             :content="comment.content" :liked="comment.liked" :likedCount="comment.likedCount"
             :user="comment.user" :timeStr="comment.timeStr" :commentId="comment.commentId"></Comment>
-            <div class="latestComments">最新评论</div>
+            <div class="latestComments" v-if="latestComments.length > 0">最新评论</div>
             <Comment v-for="comment in latestComments" :key="comment.commentId" :beReplied="comment.beReplied"
             :content="comment.content" :liked="comment.liked" :likedCount="comment.likedCount"
             :user="comment.user" :timeStr="comment.timeStr" :commentId="comment.commentId"></Comment>
