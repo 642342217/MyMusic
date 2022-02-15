@@ -6,7 +6,7 @@
         <div><router-link to="/findmusic">发现音乐</router-link></div>
         <div><router-link to="">排行榜</router-link></div>
         <div><router-link to="/playlist">歌单</router-link></div>
-        <div><router-link to="">歌手</router-link></div>
+        <div><router-link to="/artists">歌手</router-link></div>
         <div><router-link to="">关注</router-link></div>
         <div><router-link to="">个人中心</router-link></div>
     </div>

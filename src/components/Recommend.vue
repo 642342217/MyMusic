@@ -1,41 +1,46 @@
 <template>
-    <div class="hot-songer">
-        <div class="header">
-            <div class="title">热门歌手</div>
-            <div class="more">更多</div>
-        </div>
-        <div class="songerBox">
-            <SongerCover v-for="artist in artists" :key="artist.id" :id="artist.id"
-            :name="artist.name" :imgUrl="artist.imgUrl"></SongerCover>
-        </div>
+  <div class="recommend">
+    <div class="header">
+        <div class="title">热门歌手</div>
+        <div class="more">更多</div>
     </div>
+    <div class="songerBox">
+        <SongerCover v-for="artist in artists" :key="artist.id" :id="artist.id"
+        :name="artist.name" :imgUrl="artist.imgUrl" :style="{ width: 10 + 'vw', height: 10 + 'vw'}"></SongerCover>
+    </div>
+  </div>
 </template>
 
 <script>
-import api from '../api/index'
 import SongerCover from './SongerCover.vue'
+import api from '../api/index'
 export default {
     data() {
         return {
-            artists: [],
+            artists: []
         }
     },
     components: { SongerCover },
-    async created() {
-        let {data} = await api.getHotSonger();
-        data.artists.forEach(person => {
+    methods: {
+        async getArtists() {
+            let { data } = await api.getArtists(-1, -1, -1);
+            data.artists.forEach(person => {
             let {name, id, img1v1Url, fansCount} = person;
             this.artists.push({name: name, id: id, imgUrl: img1v1Url, fansCount: fansCount}); 
-        })
-        this.$store.commit('receiveHotSongerInfo', this.artists);
+        });
+        }
     },
+    created() {
+        this.getArtists();
+    }
 }
 </script>
 
 <style lang="less" scoped>
-    .hot-songer{
-        margin: 0 auto;
-        width: 66vw;
+    .recommend{
+        box-sizing: border-box;
+        width: 64vw;
+        padding: 30px 30px;
         .header{
             display: flex;
             justify-content: space-between;
@@ -56,11 +61,9 @@ export default {
             }
         }
         .songerBox{
-            width: 66vw;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            margin-bottom: 10px;
         }
     }
 </style>

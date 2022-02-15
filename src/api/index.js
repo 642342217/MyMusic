@@ -24,6 +24,7 @@ import {
     userDetail,
     follow,
     playlistOfUser,
+    artists,
 } from './config.js'
 
 //设置请求超时时间
@@ -228,5 +229,32 @@ export default {
                 uid
             }
         })
-    }
+    },
+    /*获取歌手分类
+    limit：返回数量，默认为30
+    type取值：
+        -1:全部
+        1:男歌手
+        2:女歌手
+        3:乐队
+    area取值：
+        -1:全部
+        7华语
+        96欧美
+        8:日本
+        16韩国
+        0:其他
+    initial: 按首字母索引查找参数,如 /artist/list?type=1&area=96&initial=b 
+    返回内容将以 name 字段开头为 b 或者拼音开头为 b 为顺序排列, 热门传-1,#传 0
+    */
+    getArtists(type, area, initial = 0, limit = 30) {
+        return axios.get(artists, {
+            params: {
+                limit,
+                type,
+                area,
+                initial
+            }
+        })
+    },
 }

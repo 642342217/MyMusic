@@ -8,6 +8,9 @@ import PlayList from '../components/PlayList'
 import PlayListDetail from '../components/PlayListDetail'
 import Login from '../components/Login'
 import UserDetail from '../components/UserDetail'
+import Artists from '../components/Artists'
+import Recommend from '../components/Recommend'
+import ArtistCategory from '../components/ArtistCategory'
 
 Vue.use(VueRouter)
 import store from '../store'
@@ -43,14 +46,36 @@ const routes = [
       requireAuth: true     //添加该字段，表示进入该组件，需要登录状态
     }
   },
+  //登录页面
   {
     path: '/login',
     name: 'login',
     component: Login
   },
+  // 用户页面
   {
     path: '/user',
     component: UserDetail
+  },
+  // 歌手页面
+  {
+    path: '/artists',
+    component: Artists,
+    redirect: { name: 'recommend' },
+    children: [
+      //推荐歌手
+      {
+        path: 'recommend',
+        name: 'recommend',
+        component: Recommend
+      },
+      // 华语男歌手
+      {
+        path: 'artist-category',
+        component: ArtistCategory,
+        name: 'category'
+      }
+    ]
   }
 ]
 
@@ -79,8 +104,6 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if(from);
-  console.log(to.meta.requireAuth);
-  console.log(store.getters.getLoginStatus);
   if(to.meta.requireAuth) {
     if(store.getters.getLoginStatus) {
       next();

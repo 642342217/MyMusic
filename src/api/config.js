@@ -21,3 +21,4 @@ export const songsOfPlayList = '/playlist/track/all';//获取歌单所有歌曲
 export const userDetail = '/user/detail';//获取用户详情信息
 export const follow = '/follow';//关注/取消关注用户
 export const playlistOfUser = '/user/playlist';//获取用户歌单
+export const artists = '/artist/list';//获取歌手分类

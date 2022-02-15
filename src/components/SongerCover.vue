@@ -10,7 +10,7 @@ export default {
     props:['name', 'imgUrl', 'id'],
     methods: {
         toSonger() {
-            this.$router.push({ path: 'artist', query: { id: this.id }});
+            this.$router.push({ path: '/artist', query: { id: this.id }});
         }
     },
 }
@@ -23,8 +23,8 @@ export default {
         height: calc(@width + 14px);
         margin: 20px 0;
         img{
-            width: @width;
-            height: @width;
+            width: 100%;
+            height: 100%;
             cursor: pointer;
         }
         p{
