@@ -51,9 +51,9 @@ export default {
             this.$refs['7th'].className = '';
         }
     },
-    created() {
-        this.$refs['1th'].className = 'active';
-    },
+    // created() {
+    //     this.$refs['1th'].className = 'active';
+    // },
     beforeUpdate() {
         let id = this.getQueryId();
         this.clearActive();

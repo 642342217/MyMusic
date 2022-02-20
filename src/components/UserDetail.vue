@@ -87,7 +87,7 @@ export default {
             let { data } = await api.getPlayListsOfUser(this.$route.query.id);
             data.playlist.forEach(list => {
                 let { coverImgUrl, name, id } = list;
-                if(list.userId === this.$route.query.id) {
+                if(list.userId == this.$route.query.id) {
                     this.create_list.push({
                         coverImgUrl,
                         name,
@@ -101,8 +101,6 @@ export default {
                     })
                 }
             });
-            console.log(this.create_list);
-            console.log(this.collectlist);
         }
     },
     created() {

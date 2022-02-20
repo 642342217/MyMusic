@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-      <router-view></router-view>
+      <router-view :key="new Date()"></router-view>
   </div>
 </template>
 
@@ -14,8 +14,8 @@ export default {
       this.$store.commit('changeShowLoginBox', false);
     }
     });
-    
   },
+  
 }
 </script>
 

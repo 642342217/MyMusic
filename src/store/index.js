@@ -13,8 +13,7 @@ const state = {
   playSongUrl: '',//当前播放音乐的url
   hotSongerInfo: [],//热门歌手信息
   playingSongId: '',//歌手Top50正在播放音乐的ID
-  leftActive: '',//左侧正在浏览的板块
-  rightActive: '',//右侧正在浏览的板块
+  searchBox: false,//是否显示搜索建议框
 };
 
 const actions = {
@@ -69,6 +68,10 @@ const mutations = {
   //设置右侧正在浏览的板块
   setRightActive(state, target) {
     state.rightActive = target;
+  },
+  //设置搜索建议框状态
+  setSearchBox(state, value) {
+    state.searchBox = value;
   }
 };
 
@@ -101,13 +104,9 @@ const getters = {
   getLoginStatus(state) {
     return state.hasLogined;
   },
-  //获取左侧正在浏览的板块
-  getLeftActive(state) {
-    return state.leftActive;
-  },
-  //获取右侧正在浏览的板块
-  getRightActive(state) {
-    return state.rightActive;
+  //搜索建议框
+  getSearchBoxStatus(state) {
+    return state.searchBox;
   }
 }
 

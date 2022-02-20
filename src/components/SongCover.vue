@@ -5,9 +5,9 @@
                 <div :class="playOrPause" @click="playOrPauseSong"></div>
             </div>
         </div>
-        <div class="song_name" @mouseenter="showAll(event)" @mouseleave="showAllName = !showAllName"
+        <div class="song_name" @mouseenter="showAll($event)" @mouseleave="showAllName = !showAllName"
         @click="toDetailPage">{{name}}</div>
-        <div @click="toCreator" v-if="page === 'playlist'"><slot name="creator" class="slot"></slot></div>
+        <div @click="toCreator" v-if="page === 'playlist'"><slot name="creator"></slot></div>
         <span class="allName" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showAllName">{{name}}</span>
     </div>
 </template>
@@ -56,13 +56,14 @@ export default {
             let y = e.pageY || e.clientY + scrollY;
             this.x = x + 10;
             this.y = y + 15;
-            this.showAllName = !this.showAllName
+            this.showAllName = !this.showAllName;
         },
         //跳转至具体页面
         toDetailPage() {
             if(window.location.hash !== '#/findmusic') {
                 this.$router.push({ path: '/playlist-detail', query: { id: this.id }} );
-                console.log(123123);
+            } else if (window.location.hash === '#/findmusic') {
+                this.$router.push({ path: '/songdetail', query: { id: this.id }});
             }
         },
         //跳转至歌单创建者

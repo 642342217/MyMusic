@@ -10,7 +10,7 @@
           <div class="time">{{timeStr}}</div>
           <div class="liked-reply">
             <i :class="{ liked: liked, iconfont: true }" @click="like">&#xec7f;</i>
-            <span class="likedCount" v-if="likedCount > 0 ? true : false">({{likedCount}})</span>
+            <span class="likedCount" v-if="likedCount">({{likedCount}})</span>
             <span> | </span>
             <span class="reply-content" @click="vetifyStatus">回复</span>
           </div>
@@ -23,11 +23,6 @@
 import api from '../api/index'
 export default {
   props: ['user', 'content', 'beReplied', 'likedCount', 'timeStr', 'liked', 'commentId'],
-  data() {
-    return {
-      
-    }
-  },
   methods: {
     async like() {
       let { data } = await api.getLoginStatus();

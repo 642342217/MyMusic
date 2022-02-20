@@ -11,9 +11,9 @@
                       <div class="creator-avatar">
                           <img :src="info.avatarUrl" :alt="info.nickname">
                       </div>
-                      <div class="creator-name">{{info.nickname}}</div>
+                      <div class="creator-name" @click="toUserPage">{{info.nickname}}</div>
                   </div>
-                  <div class="play" @click="playMusic">
+                  <div class="play">
                       <i class="iconfont">&#xe624;</i>
                       <span>播放</span>
                   </div>
@@ -25,7 +25,7 @@
           <div class="main">
               <div class="song-list">歌曲列表</div>
             <Song-Row v-for="(song, index) in songs" :key="song.id" :index="index" :name="song.name"
-            :category="song.category" :id="song.id" :time="song.dt" :userId="song.userId">
+            :category="song.category" :id="song.id" :time="song.dt" :userId="song.userId" :userName="song.userName">
             <template v-slot:creator>
                 <span>{{song.userName}}</span>
             </template>
@@ -64,12 +64,6 @@ export default {
                 avatarUrl
             }
         },
-        //播放音乐
-        async playMusic() {
-            // let { data } = await api.getSongUrl(this.songId);
-            // this.songUrl = data.data[0].url;
-            // this.$store.commit('playSong', this.songUrl);
-        },
         //获取歌单所有歌曲
         async getSongsOfPlayList() {
             let { data } = await api.getSongsOfPlayList(this.$route.query.id);
@@ -86,6 +80,10 @@ export default {
                     category
                 });
             });
+        },
+        //导航至用户界面
+        toUserPage() {
+            this.$router.push({ path: '/user', query: { id: this.info.userId }});
         }
     },
     created() {

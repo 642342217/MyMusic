@@ -6,7 +6,7 @@
                 <div class="more">更多</div>
             </div>
             <div class="songBox">
-                <SongCover v-for="song in playlists" :key="song.id" :id="song.id" 
+                <SongCover v-for="(song, index) in playlists" :key="song.id + index" :id="song.id" 
                 :name="song.name" :picUrl="song.coverImgUrl" :userId="song.userId">
                 <template v-slot:creator>
                     <span class="slot">by_{{song.nickname}}</span>
@@ -31,7 +31,6 @@ export default {
     methods: {
         async getPlayLists() {
             let { data } = await api.getPlayLists();
-
             data.playlists.forEach(list => {
                 let { name, id, coverImgUrl, description, playCount } = list;
                 let { userId, nickname } = list.creator;

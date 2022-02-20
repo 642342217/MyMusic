@@ -25,6 +25,10 @@ import {
     follow,
     playlistOfUser,
     artists,
+    userAccount,
+    weeklyPlay,
+    allPlay,
+    suggest,
 } from './config.js'
 
 //设置请求超时时间
@@ -257,4 +261,33 @@ export default {
             }
         })
     },
+    // 获取个人详情
+    getUserAccount() {
+        return axios.get(userAccount);
+    },
+    //获取最近一周播放歌曲
+    getWeeklyPlay(id) {
+        return axios.get(weeklyPlay, {
+            params: {
+                uid: id
+            }
+        })
+    },
+    //获取所有播放歌曲
+    getAllPlay(id) {
+        return axios.get(allPlay, {
+            params: {
+                uid: id
+            }
+        })
+    },
+    //获得搜索建议
+    getSuggest(keywords) {
+        return axios.get(suggest, {
+            params: {
+                keywords
+            }
+        })
+    }
+
 }

@@ -3,23 +3,25 @@
       <div class="index">{{index + 1}}</div>
       <i :class="{ play: true, iconfont: true, active: activeId === id }" @click="playIt">&#xe624;</i>
       <div class="name"><span @click="toSongDetail" @mouseenter="showSong(event)" @mouseleave="showSongName = !showSongName">{{name}}</span></div>
-      <div class="creator"><span @click="toSonger" class="slot"><slot name="creator"></slot></span></div>
+      <div class="creator"><span @click="toSonger" class="slot" @mouseenter="showCreator($event)" @mouseleave="showCreatorName = !showCreatorName"><slot name="creator"></slot></span></div>
       <div class="time">{{time | minute_second}}</div>
       <div class="category" @mouseenter="showCategory(event)" @mouseleave="showCategoryName = !showCategoryName">{{category}}</div>
       <span class="category-name" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showCategoryName">{{category}}</span>
       <span class="song-name" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showSongName">{{name}}</span>
+      <span class="allName" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showCreatorName">{{userName}}</span>
   </div>
 </template>
 
 <script>
 import api from '../api/index'
 export default {
-    props: ['index', 'time', 'id', 'name', 'category', 'userId'],
+    props: ['index', 'time', 'id', 'name', 'category', 'userId', 'userName'],
     data() {
       return {
         songUrl: '',
         showSongName: false,
-        showCategoryName: false
+        showCategoryName: false,
+        showCreatorName: false,
       }
     },
     filters: {
@@ -77,6 +79,11 @@ export default {
       showSong(event) {
         this.getMousePosition(event);
         this.showSongName = !this.showSongName;
+      },
+      //展示作者全称
+      showCreator(event) {
+        this.getMousePosition(event);
+        this.showCreatorName = !this.showCreatorName;
       },
       //展示专辑全称
       showCategory(event) {
@@ -149,6 +156,9 @@ export default {
     }
     .creator{
       width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       margin-left: 10px;
       .slot{
         &:hover{
@@ -156,6 +166,10 @@ export default {
           text-decoration: underline;
         }
       }
+    }
+    .allName{
+      background-color: #fff;
+      border: solid 1px #242424;
     }
   }
 </style>

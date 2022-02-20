@@ -11,15 +11,25 @@ import UserDetail from '../components/UserDetail'
 import Artists from '../components/Artists'
 import Recommend from '../components/Recommend'
 import ArtistCategory from '../components/ArtistCategory'
+import Personal from '../components/Personal'
+import TopList from '../components/TopList'
+import SearchPage from '../components/SearchPage'
 
 Vue.use(VueRouter)
 import store from '../store'
 
 const routes = [
+  {
+    path: '/',
+    redirect: {
+      name: 'findmusic'
+    }
+  },
   // 发现音乐页面
   {
     path: '/findmusic',
-    component: FindMusic
+    component: FindMusic,
+    name: 'findmusic'
   },
   //具体歌手页面
   {
@@ -69,13 +79,31 @@ const routes = [
         name: 'recommend',
         component: Recommend
       },
-      // 华语男歌手
+      // 歌手分类
       {
         path: 'artist-category',
         component: ArtistCategory,
         name: 'category'
       }
     ]
+  },
+  //个人用户界面
+  {
+    path: '/personal',
+    component: Personal,
+    meta: {
+      requireAuth: true     //添加该字段，表示进入该组件，需要登录状态
+    }
+  },
+  //排行榜界面
+  {
+    path: '/top-list',
+    component: TopList
+  },
+  //进入搜索界面
+  {
+    path: '/search',
+    component: SearchPage
   }
 ]
 

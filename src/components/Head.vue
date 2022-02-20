@@ -4,29 +4,40 @@
     <div class="title">网易云音乐</div>
     <div class="nav_content">
         <div><router-link to="/findmusic">发现音乐</router-link></div>
-        <div><router-link to="">排行榜</router-link></div>
+        <div><router-link to="/top-list">排行榜</router-link></div>
         <div><router-link to="/playlist">歌单</router-link></div>
         <div><router-link to="/artists">歌手</router-link></div>
         <div><router-link to="">关注</router-link></div>
-        <div><router-link to="">个人中心</router-link></div>
+        <div><router-link :to="{ path: '/personal', query: { id: id }}">个人中心</router-link></div>
     </div>
-    <div class="input"><input type="text" v-model="searchValue" placeholder="周杰伦" @keyup.enter="search"></div>
+    <div class="input">
+        <input type="search" v-model.trim="searchValue" placeholder="周杰伦" 
+        @keyup.enter="toSearchPage" @focus="showSearchBox" @blur="hideSearchBox">
+    </div>
     <div class="login" @click="login" v-if="! $store.state.hasLogined"><a>登录/注册</a></div>
     <div class="login" @click="logout" v-else><a>退出登录</a></div>
-    <i class="searchInfo iconfont" @click="search">&#xe600;</i>
+    <i class="searchInfo iconfont" @click="toSearchPage">&#xe600;</i>
     <Login v-show="isShow"></Login>
+    <SearchSuggest :artists="searchInfo.artists" :playlists="searchInfo.playlists" :songs="searchInfo.songs" class="suggest" v-if="searchBox"></SearchSuggest>
   </div>
 </template>
 
 <script>
 import api from '../api/index'
 import Login from '../components/Login.vue'
+import SearchSuggest from './SearchSuggest.vue'
 export default {
     name:"Head",
-    components:{ Login },
+    components:{ Login, SearchSuggest },
     data() {
         return {
             searchValue: this.$store.state.search,
+            id: '',
+            searchInfo: {
+                artists: [],
+                playlists: [],
+                songs: []
+            }
         }
     },
     methods: {
@@ -41,18 +52,118 @@ export default {
                 return alert("data.msg");
             }
         },
-        async search() {
-            let { data } = await api.search(this.searchValue);
-            console.log(data);
+        // 获取个人用户信息
+        async getPersonalInfo() {
+            let { data } = await api.getUserAccount();
+            if(data.profile) {
+                let { userId } = data.profile;
+                this.id = userId;
+            }
+            
+        },
+        // 跳转至搜索具体页面
+        toSearchPage() {
+            this.$router.push({ path: '/search', qeury: { value: this.searchValue }});
+        },
+        async sendRequest() {
+            if(!this.searchValue) {
+                return;
+            }
+            let { data } = await api.getSuggest(this.searchValue);
+            this.searchInfo.artists = [];
+            this.searchInfo.playlists = [];
+            this.searchInfo.songs = [];
+            if(data.result === {}) return;
+            if(data.code == 200) {
+                //获取相关歌手信息
+                if(data.result.artists) {
+                    data.result.artists.forEach(artist => {
+                        let { id, name } = artist;
+                        this.searchInfo.artists.push({
+                            id,
+                            name
+                        });
+                    });
+                }
+                
+                // 获取相关歌单信息
+                if(data.result.playlists) {
+                    data.result.playlists.forEach(list => {
+                        let { id, name } = list;
+                        this.searchInfo.playlists.push({
+                            id,
+                            name
+                        });
+                    });
+                }
+                
+                //获取相关歌手信息
+                if(data.result.songs) {
+                    data.result.songs.forEach(song => {
+                        let { id, name } = song;
+                        this.searchInfo.songs.push({
+                            id,
+                            name
+                        });
+                    });
+                }  
+            }
+            if(!this.searchInfo.artists.length && !this.searchInfo.playlists.length && !this.searchInfo.songs.length) {
+                return;
+            }
+            this.$store.commit('setSearchBox', true);
+        },
+        //将发送请求进行防抖处理
+        throughDebouce() {
+            this.showSearchSuggest = this.debounce(this.sendRequest, 300);
+        },
+        showSearchSuggest() {
+            
+        },
+        //防抖
+        debounce(fn, delay) {
+            let timer = null;
+            return function(...args) {
+                if(timer) clearTimeout(timer);
+                let context = this;
+                timer = setTimeout(() => {
+                    fn.apply(context, args);
+                    timer = null;
+                }, delay);
+            }
+        },
+        //展示搜索建议框
+        showSearchBox() {
+            if(this.searchValue !== '') {
+                this.$store.commit('setSearchBox', true);
+            } else if(!this.searchInfo.artists.length && !this.searchInfo.playlists.length && !this.searchInfo.songs.length) {
+                this.$store.commit('setSearchBox', false);
+            }
+        },
+        //隐藏搜索建议框
+        hideSearchBox() {
+            this.$store.commit('setSearchBox', false);
+        }
+    },
+    watch: {
+        searchValue(newValue) {
+            if(newValue === '') {
+                return this.$store.commit('setSearchBox', false);
+            }
+            this.showSearchSuggest();
         }
     },
     computed:{
         isShow(){
             return this.$store.state.isShowLoginBox;
+        },
+        searchBox() {
+            return this.$store.getters.getSearchBoxStatus;
         }
     },
     created() {
-
+        this.getPersonalInfo();
+        this.throughDebouce();
     },
 }
 </script>
@@ -136,6 +247,13 @@ export default {
             right: 160px;
             font-size: 20px;
             cursor: pointer;
+        }
+        .suggest{
+            position: absolute;
+            top: 55px;
+            right: 18vw;
+            z-index: 1000;
+            background-color: whitesmoke;
         }
     }
 </style>
