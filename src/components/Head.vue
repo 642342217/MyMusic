@@ -12,7 +12,7 @@
     </div>
     <div class="input">
         <input type="search" v-model.trim="searchValue" placeholder="周杰伦" 
-        @keyup.enter="toSearchPage" @focus="showSearchBox" @blur="hideSearchBox">
+        @keyup.enter="toSearchPage" @focus="showSearchBox">
     </div>
     <div class="login" @click="login" v-if="! $store.state.hasLogined"><a>登录/注册</a></div>
     <div class="login" @click="logout" v-else><a>退出登录</a></div>
@@ -172,14 +172,18 @@ export default {
 
 <style lang="less" scoped>
     .container{
-        margin: 0 auto;
         height: 70px;
         background-color: #242424;
         position: relative;
+        width: 100vw;
+        max-width: 1500px;
+        line-height: 70px;
         .logo{
-            margin: 16px 10px 16px 50px;
+            position: absolute;
             display: inline-block;
+            margin: 0 10px 0 50px;
             color: red;
+            top: 15px;
             width: 40px;
             height: 40px;
             font-size: 40px;
@@ -188,9 +192,12 @@ export default {
             border-radius: 50%;
         }
         .title{
+            position: absolute;
             display: inline-block;
             font-size: 30px;
             margin: 0 5px;
+            top: 20px;
+            left: 110px;
             font-family: 'Times New Roman', Times, serif;
             color: white;
             &::after{
@@ -237,8 +244,8 @@ export default {
         }
         .login{
             position: absolute;
-            top: 25px;
-            right: 20px;
+            top: 4px;
+            right: 30px;
             a{
                 color: white;
                 cursor: pointer;
@@ -246,7 +253,7 @@ export default {
         }
         .searchInfo{
             position: absolute;
-            top: 25px;
+            top: 4px;
             right: 160px;
             font-size: 20px;
             cursor: pointer;
@@ -257,6 +264,7 @@ export default {
             right: 18vw;
             z-index: 1000;
             background-color: whitesmoke;
+            line-height: 25px;
         }
     }
 </style>
