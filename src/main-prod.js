@@ -7,6 +7,7 @@ import './assets/global.css'
 import './assets/font.css'
 // import vuetify from './plugins/vuetify'
 import VueLazyload from 'vue-lazyload'
+import Vuetify from 'vuetify'
 
 Vue.config.productionTip = false
 Vue.use(VueLazyload)
@@ -14,7 +15,7 @@ Vue.use(VueLazyload)
 new Vue({
   router,
   store,
-//   vuetify,
+  vuetify: new Vuetify(),
   render: h => h(App),
   beforeCreate() {
     Vue.prototype.$bus = this;//安装全局事件总线
