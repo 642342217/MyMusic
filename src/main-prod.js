@@ -14,7 +14,7 @@ Vue.use(VueLazyload)
 new Vue({
   router,
   store,
-  vuetify,
+//   vuetify,
   render: h => h(App),
   beforeCreate() {
     Vue.prototype.$bus = this;//安装全局事件总线
