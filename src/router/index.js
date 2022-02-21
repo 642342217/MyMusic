@@ -1,19 +1,44 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import FindMusic from '../components/FindMusic'
-import Songer from '../components/Songer'
-import SongDetail from '../components/SongDetail'
-import PlayList from '../components/PlayList'
-import PlayListDetail from '../components/PlayListDetail'
-import Login from '../components/Login'
-import UserDetail from '../components/UserDetail'
-import Artists from '../components/Artists'
-import Recommend from '../components/Recommend'
-import ArtistCategory from '../components/ArtistCategory'
-import Personal from '../components/Personal'
-import TopList from '../components/TopList'
-import SearchPage from '../components/SearchPage'
+// import FindMusic from '../components/FindMusic'
+const FindMusic = () => import('../components/FindMusic')
+
+// import Songer from '../components/Songer'
+const Songer = () => import('../components/Songer')
+
+// import SongDetail from '../components/SongDetail'
+const SongDetail = () => import('../components/SongDetail')
+
+// import PlayList from '../components/PlayList'
+const PlayList = () => import('../components/PlayList')
+
+// import PlayListDetail from '../components/PlayListDetail'
+const PlayListDetail = () => import('../components/PlayListDetail')
+
+// import Login from '../components/Login'
+const Login = () => import('../components/Login')
+
+// import UserDetail from '../components/UserDetail'
+const UserDetail = () => import('../components/UserDetail')
+
+// import Artists from '../components/Artists'
+const Artists = () => import('../components/Artists')
+
+// import Recommend from '../components/Recommend'
+const Recommend = () => import('../components/Recommend')
+
+// import ArtistCategory from '../components/ArtistCategory'
+const ArtistCategory = () => import('../components/ArtistCategory')
+
+// import Personal from '../components/Personal'
+const Personal = () => import('../components/Personal')
+// 
+// import TopList from '../components/TopList'
+const TopList = () => import('../components/TopList')
+
+// import SearchPage from '../components/SearchPage'
+const SearchPage = () => import('../components/SearchPage')
 
 Vue.use(VueRouter)
 import store from '../store'
