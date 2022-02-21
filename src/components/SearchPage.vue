@@ -115,13 +115,13 @@ export default {
       this.getSearchInfo(this.$route.query.type);
       this.$nextTick(() => {
         switch (this.$route.query.type) {
-          case '1':
+          case 1:
             this.$refs.song.className = 'active';
             break;
-          case '100':
+          case 100:
             this.$refs.artist.className = 'active';
             break;
-          case '1000':
+          case 1000:
             this.$refs.playlist.className = 'active';
             break;
           default:
