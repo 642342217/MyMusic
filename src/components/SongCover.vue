@@ -2,12 +2,12 @@
     <div class="main">
         <div class="song_cover" :style="background" @click="toDetailPage">
             <div class="mask" v-if="page === 'findmusic'">
-                <div :class="playOrPause" @click="playOrPauseSong"></div>
+                <div :class="playOrPause" @click.stop="playOrPauseSong"></div>
             </div>
         </div>
         <div class="song_name" @mouseenter="showAll($event)" @mouseleave="showAllName = !showAllName"
         @click="toDetailPage">{{name}}</div>
-        <div @click="toCreator" v-if="page === 'playlist'"><slot name="creator"></slot></div>
+        <div @click="toCreator" v-if="page === 'playlist' || page === 'search'"><slot name="creator"></slot></div>
         <span class="allName" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showAllName">{{name}}</span>
     </div>
 </template>
@@ -98,6 +98,8 @@ export default {
             this.page = 'findmusic';
         } else if(window.location.hash === '#/playlist') {
             this.page = 'playlist';
+        } else if(window.location.hash === '#/search?s=1&type=1000') {
+            this.page = 'search';
         } else {
             this.page = 'user';
         }

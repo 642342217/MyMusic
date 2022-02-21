@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-      <div class="head"><img :src="user.avatarUrl" alt="头像"></div>
+      <div class="head"><img v-lazy="user.avatarUrl" alt="头像"></div>
       <div class="bdy">
         <div class="content-box"><span class="name">{{user.nickname}}</span>:<span class="content">{{contents}}</span></div>
         <div class="replied" v-if="beReplied.length">

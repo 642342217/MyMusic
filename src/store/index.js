@@ -61,14 +61,14 @@ const mutations = {
   setPlayingSongId(state, id) {
     state.playingSongId = id;
   },
-  //设置左侧正在浏览的板块
-  setLeftActive(state, target) {
-    state.leftActive = target;
-  },
-  //设置右侧正在浏览的板块
-  setRightActive(state, target) {
-    state.rightActive = target;
-  },
+  // //设置左侧正在浏览的板块
+  // setLeftActive(state, target) {
+  //   state.leftActive = target;
+  // },
+  // //设置右侧正在浏览的板块
+  // setRightActive(state, target) {
+  //   state.rightActive = target;
+  // },
   //设置搜索建议框状态
   setSearchBox(state, value) {
     state.searchBox = value;

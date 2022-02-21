@@ -30,7 +30,7 @@
           </div>
       </div>
       <div class="content">
-          <router-view :key="new Date()"></router-view>
+          <router-view :key="$route.query"></router-view>
       </div>
   </div>
 </template>
@@ -51,35 +51,34 @@ export default {
             this.$refs['7th'].className = '';
         }
     },
-    // created() {
-    //     this.$refs['1th'].className = 'active';
-    // },
-    beforeUpdate() {
+    created() {
         let id = this.getQueryId();
-        this.clearActive();
-        switch (id) {
-            case '101':
-                this.$refs['2th'].className = 'active';
-                break;
-            case '102':
-                this.$refs['3th'].className = 'active';
-                break;
-            case '201':
-                this.$refs['4th'].className = 'active';
-                break;
-            case '202':
-                this.$refs['5th'].className = 'active';
-                break;
-            case '301':
-                this.$refs['6th'].className = 'active';
-                break;
-            case '302':
-                this.$refs['7th'].className = 'active';
-                break;
-            default:
-                this.$refs['1th'].className = 'active';
-                break;
-        }
+        this.$nextTick(() => {
+            this.clearActive();
+            switch (id) {
+                case '101':
+                    this.$refs['2th'].className = 'active';
+                    break;
+                case '102':
+                    this.$refs['3th'].className = 'active';
+                    break;
+                case '201':
+                    this.$refs['4th'].className = 'active';
+                    break;
+                case '202':
+                    this.$refs['5th'].className = 'active';
+                    break;
+                case '301':
+                    this.$refs['6th'].className = 'active';
+                    break;
+                case '302':
+                    this.$refs['7th'].className = 'active';
+                    break;
+                default:
+                    this.$refs['1th'].className = 'active';
+                    break;
+            }
+        });
     }
 }
 </script>

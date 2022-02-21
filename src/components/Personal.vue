@@ -122,7 +122,6 @@ export default {
     async getPlayLists() {
       // 0c255704b57c063bb6aca0f33edb5628
       let { data } = await api.getPlayListsOfUser(this.$route.query.id);
-      console.log(data);
       data.playlist.forEach((list) => {
         let { coverImgUrl, name, id } = list;
         if (list.userId == this.$route.query.id) {
@@ -204,6 +203,11 @@ export default {
     },
   },
   created() {
+    api.getLoginStatus().then(data => {
+      if(data.data.data.account == null) {
+        this.$router.go(-1);
+      }
+    });
     this.getDetail();
     this.getPlayLists();
     this.getWeeklyPlay();

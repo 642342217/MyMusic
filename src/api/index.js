@@ -35,7 +35,12 @@ import {
 axios.defaults.timeout = 30000;
 
 // 请求通用url
-axios.defaults.baseURL = "http://localhost:3000";
+//本地地址
+// axios.defaults.baseURL = "http://localhost:3000";
+
+//vercel部署线上地址
+axios.defaults.baseURL = 'https://netease-cloud-music-api-ithtz5u4t-642342217.vercel.app'
+
 //请求携带cookie
 axios.defaults.withCredentials = true
 
@@ -177,16 +182,6 @@ export default {
             }
         })
     },
-    //搜索
-    search(keyWords) {
-        let date = new Date();
-        return axios.get(search, {
-            params: {
-                keywords: keyWords,
-                timestamp: date
-            }
-        })
-    },
     //获取歌单
     getPlayLists() {
         return axios.get(playlists);
@@ -286,6 +281,15 @@ export default {
         return axios.get(suggest, {
             params: {
                 keywords
+            }
+        })
+    },
+    //获取相关搜索结果
+    getSearchResult(keywords, type) {
+        return axios.get(search, {
+            params: {
+                keywords,
+                type
             }
         })
     }

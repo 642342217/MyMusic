@@ -1,7 +1,7 @@
 <template>
   <div class="song-detail">
       <div class="header">
-          <div class="pic"><img :src="picUrl" :alt="name"></div>
+          <div class="pic"><img v-lazy="picUrl" :alt="name"></div>
           <div class="song-content">
               <div class="song-name">{{name}}</div>
               <div class="song-artist">歌手：<span @click="toSonger">{{artist}}</span></div>

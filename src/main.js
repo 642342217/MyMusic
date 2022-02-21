@@ -6,8 +6,10 @@ import store from './store'
 import './assets/global.css'
 import './assets/font.css'
 import vuetify from './plugins/vuetify'
+import VueLazyload from 'vue-lazyload'
 
 Vue.config.productionTip = false
+Vue.use(VueLazyload)
 
 new Vue({
   router,

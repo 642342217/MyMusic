@@ -1,5 +1,5 @@
 <template>
-  <div class="search-suggest">
+  <div class="search-suggest" v-if="songs.length || artists.length || playlists.length">
       <div class="result">搜索结果</div>
       <div class="box" v-if="songs.length">
           <div class="left"><div class="t">单曲</div></div>

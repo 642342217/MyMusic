@@ -1,6 +1,6 @@
 <template>
   <div class="songer">
-      <img :src="imgUrl" :alt="name" @click="toSonger">
+      <img v-lazy="imgUrl" :alt="name" @click="toSonger">
       <p @click="toSonger">{{name}}</p>
   </div>
 </template>

@@ -7,7 +7,7 @@
         <div><router-link to="/top-list">排行榜</router-link></div>
         <div><router-link to="/playlist">歌单</router-link></div>
         <div><router-link to="/artists">歌手</router-link></div>
-        <div><router-link to="">关注</router-link></div>
+        <div>关注</div>
         <div><router-link :to="{ path: '/personal', query: { id: id }}">个人中心</router-link></div>
     </div>
     <div class="input">
@@ -48,6 +48,7 @@ export default {
             let {data} = await api.logout();
             if(data.code === 200) {
                 this.$store.commit("changeLoginStatus", false);
+                this.$router.push('/');
             }else {
                 return alert("data.msg");
             }
@@ -63,7 +64,8 @@ export default {
         },
         // 跳转至搜索具体页面
         toSearchPage() {
-            this.$router.push({ path: '/search', qeury: { value: this.searchValue }});
+            this.$store.commit('setSearchBox', false);
+            this.$router.push({ path: '/search', query: { s: this.searchValue, type: 1 }});
         },
         async sendRequest() {
             if(!this.searchValue) {
@@ -208,6 +210,7 @@ export default {
             font-size: 20px;
             div{
                 padding: 10px;
+                color: white;
                 a{
                     color: white;
                     &.router-link-exact-link{

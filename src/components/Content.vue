@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-      <router-view :key="new Date()"></router-view>
+      <router-view :key="$route.query"></router-view>
   </div>
 </template>
 

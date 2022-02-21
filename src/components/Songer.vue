@@ -2,7 +2,7 @@
   <div class="songer">
     <p>{{songer.name}}</p>
     <div class="songer-info">
-        <img :src="songer.cover" :alt="songer.name">
+        <img v-lazy="songer.cover" :alt="songer.name">
         <span>{{songer.briefDesc}}</span>
     </div>
     <div class="hot-song"></div>

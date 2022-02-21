@@ -87,6 +87,11 @@ export default {
         }
     },
     created() {
+        // api.getLoginStatus().then(data => {
+        //     if(data.data.data.account === null) {
+                
+        //     }
+        // });
         this.getDetail();
         this.getSongsOfPlayList();
     }

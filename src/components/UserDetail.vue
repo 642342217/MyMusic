@@ -1,7 +1,7 @@
 <template>
   <div class="user">
       <div class="user-detail">
-          <div class="avatar"><img :src="avatarUrl" :alt="nickname"></div>
+          <div class="avatar"><img v-lazy="avatarUrl" :alt="nickname"></div>
           <div class="content">
               <div class="first">
                   <div class="name">{{nickname}}</div>

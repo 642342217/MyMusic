@@ -25,3 +25,4 @@ export const userAccount = '/user/account';//获取个人账号信息
 export const weeklyPlay = '/user/record?type=1';//获取最近一周播放歌曲
 export const allPlay = '/user/record?type=0';//获取所有播放歌曲
 export const suggest = '/search/suggest';//搜索建议
+export const search = '/search?limit=20';//获取相关搜索结果

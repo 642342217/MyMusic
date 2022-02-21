@@ -5,17 +5,18 @@
       <div class="name"><span @click="toSongDetail" @mouseenter="showSong(event)" @mouseleave="showSongName = !showSongName">{{name}}</span></div>
       <div class="creator"><span @click="toSonger" class="slot" @mouseenter="showCreator($event)" @mouseleave="showCreatorName = !showCreatorName"><slot name="creator"></slot></span></div>
       <div class="time">{{time | minute_second}}</div>
-      <div class="category" @mouseenter="showCategory(event)" @mouseleave="showCategoryName = !showCategoryName">{{category}}</div>
+      <div class="category" v-if="category" @mouseenter="showCategory(event)" @mouseleave="showCategoryName = !showCategoryName">{{category}}</div>
       <span class="category-name" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showCategoryName">{{category}}</span>
       <span class="song-name" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showSongName">{{name}}</span>
       <span class="allName" :style="{ top: y + 'px', left: x + 'px', position: 'absolute', fontSize: 8 + 'px'}" v-if="showCreatorName">{{userName}}</span>
+      <div class="creator"><span @click="toSonger" class="slot" @mouseenter="showCreator($event)" @mouseleave="showCreatorName = !showCreatorName"><slot name="artist"></slot></span></div>
   </div>
 </template>
 
 <script>
 import api from '../api/index'
 export default {
-    props: ['index', 'time', 'id', 'name', 'category', 'userId', 'userName'],
+    props: ['index', 'time', 'id', 'name', 'userId', 'userName', 'category'],
     data() {
       return {
         songUrl: '',
