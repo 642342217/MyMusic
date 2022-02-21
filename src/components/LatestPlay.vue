@@ -1,6 +1,5 @@
 <template>
-  <div :class="{ list: true, row: (index + 1) % 2 }">
-    <div class="index">{{ index + 1 }}</div>
+  <div :class="{ list: true }">
     <i
       :class="{ play: true, iconfont: true, active: activeId === id }"
       @click="playIt"
@@ -19,7 +18,6 @@
 import api from "../api/index";
 export default {
   props: [
-    "index",
     "songName",
     "songId",
     "userName",
@@ -70,9 +68,6 @@ export default {
   padding-left: 16px;
   font-size: 18px;
   line-height: 27px;
-  .index {
-    width: 30px;
-  }
   .play {
     margin-right: 1.5vw;
     &:hover {

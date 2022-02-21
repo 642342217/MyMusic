@@ -31,9 +31,8 @@
         </div>
       </div>
       <LatestPlay
-        v-for="(list, index) in lists"
+        v-for="list in lists"
         :key="list.id"
-        :index="index"
         :playCount="list.playCount"
         :songId="list.songId"
         :songName="list.songName"

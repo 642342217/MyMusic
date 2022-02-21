@@ -166,6 +166,7 @@ export default {
         button{
           width: 40%;
           height: 100%;
+          margin-top: 10px;
           border: solid 1px #242424;
         }
       }
@@ -173,7 +174,7 @@ export default {
             position: absolute;
             font-size: small;
             left: 420px;
-            bottom: -20px;
+            bottom: 5px;
             text-decoration: underline;
             cursor: pointer;
       }
