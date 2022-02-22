@@ -94,6 +94,7 @@ export default {
                 if(value.data.code === 200) {
                     this.inputValue = '';
                     this.success = true;
+                    this.getComments();
                     setTimeout(() => {
                         this.success = false;
                     }, 1000);
