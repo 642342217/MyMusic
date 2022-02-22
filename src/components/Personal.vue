@@ -203,6 +203,8 @@ export default {
   },
   created() {
     api.getLoginStatus().then(data => {
+      console.log(data.data.data.account);
+      console.log(data.data);
       if(data.data.data.account == null) {
         this.$router.go(-1);
       }

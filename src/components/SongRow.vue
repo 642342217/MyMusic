@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ song_row:true, row: (index + 1) % 2 }">
+  <div :class="{ song_row:true, myrow: (index + 1) % 2 }">
       <div class="index">{{index + 1}}</div>
       <i :class="{ play: true, iconfont: true, active: activeId === id }" @click="playIt">&#xe624;</i>
       <div class="name"><span @click="toSongDetail" @mouseenter="showSong(event)" @mouseleave="showSongName = !showSongName">{{name}}</span></div>
@@ -106,7 +106,7 @@ export default {
   .active{
     color: red;
   }
-  .row{
+  .myrow{
     background: rgba(33, 33, 33, 0.05);
   }
   .song_row{
@@ -115,7 +115,7 @@ export default {
     padding: 5px 3vw 5px 0;
     margin: 0 auto;
     .index{
-      flex-basis: 3vw;
+      width: 3vw;
       color: #d3d3d3;
     }
     .play{
