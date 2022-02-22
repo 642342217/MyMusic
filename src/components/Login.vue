@@ -58,6 +58,7 @@ export default {
           } else {
             this.$store.commit('changeLoginStatus', true);
             this.$store.commit('changeShowLoginBox', false);
+            this.$router.go(0);
             // 若是经由路由拦截的，鉴权成功后，跳转至目的界面
             if(this.$route.params.redirect) {
               this.$router.push({
@@ -71,6 +72,7 @@ export default {
           if(data.code === 200) {
             this.$store.commit('changeLoginStatus', true);
             this.$store.commit('changeShowLoginBox', false);
+            this.$router.go(0);
             // 若是经由路由拦截的，鉴权成功后，跳转至目的界面
             if(this.$route.params.redirect) {
               this.$router.push({
@@ -89,6 +91,9 @@ export default {
       sendCaptcha() {
         this.sendStatus = '已发送';
         api.sendCaptcha(this.phone);
+        setTimeout(() => {
+          this.sendStatus = '重新发送';
+        }, 30000);
       }
     },
     mounted() {
@@ -134,11 +139,14 @@ export default {
       }
     }
     .content{
+      position: relative;
       margin: 30px auto;
       width: 220px;
       height: 200px;
       .loginButton{
+        position: absolute;
         text-align: center;
+        bottom: 30px;
         border: solid 0.5px;
         line-height: 30px;
         background-color: skyblue;
@@ -151,6 +159,7 @@ export default {
         border-radius: 15px;
         width: 100%;
         height: 30px;
+        line-height: 30px;
         margin: 20px 0; 
         input{
           padding-left: 5px;
@@ -166,15 +175,15 @@ export default {
         button{
           width: 40%;
           height: 100%;
-          margin-top: 10px;
           border: solid 1px #242424;
         }
       }
       .otherLoginWay{
             position: absolute;
+            z-index: 10000;
             font-size: small;
-            left: 420px;
-            bottom: 5px;
+            right: -259px;
+            top: -46px;
             text-decoration: underline;
             cursor: pointer;
       }
