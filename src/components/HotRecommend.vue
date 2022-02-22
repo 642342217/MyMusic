@@ -12,13 +12,26 @@
 </template>
 
 <script>
+import api from '../api/index'
 import SongCover from './SongCover.vue'
 export default {
     components: {SongCover},
     computed: {
-        songInfo() {
-            return this.$store.getters.getRecommendSong;
+        songInfo: {
+            get() {
+                return this.$store.getters.getRecommendSong;
+            },
+            set() {
+
+            }
         }
+    },
+    created() {
+        api.getLoginStatus().then(data => {
+            if(data.data.data.account === null) {
+                this.songInfo.splice(5, this.songInfo.length - 5);
+            }
+        });
     }
         
 }

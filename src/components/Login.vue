@@ -58,12 +58,13 @@ export default {
           } else {
             this.$store.commit('changeLoginStatus', true);
             this.$store.commit('changeShowLoginBox', false);
-            this.$router.go(0);
             // 若是经由路由拦截的，鉴权成功后，跳转至目的界面
             if(this.$route.params.redirect) {
               this.$router.push({
                 path: this.$route.params.redirect
               })
+            } else {
+              this.$router.go(0);
             }
           }
         } else {
@@ -72,12 +73,13 @@ export default {
           if(data.code === 200) {
             this.$store.commit('changeLoginStatus', true);
             this.$store.commit('changeShowLoginBox', false);
-            this.$router.go(0);
             // 若是经由路由拦截的，鉴权成功后，跳转至目的界面
             if(this.$route.params.redirect) {
               this.$router.push({
                 path: this.$route.params.redirect
-              })
+              });
+            } else {
+              this.$router.go(0);
             }
           } else {
             this.pswIsTrue = true;
