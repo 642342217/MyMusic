@@ -40,6 +40,7 @@
         :userName="list.userName"
         :score="list.score"
       ></LatestPlay>
+      <div v-if="!lists.length && showWeekly" class="no-record">无最近播放记录</div>
     </div>
 
     <!-- 用户歌单 -->
@@ -202,13 +203,6 @@ export default {
     },
   },
   created() {
-    api.getLoginStatus().then(data => {
-      console.log(data.data.data.account);
-      console.log(data.data);
-      if(data.data.data.account == null) {
-        this.$router.go(-1);
-      }
-    });
     this.getDetail();
     this.getPlayLists();
     this.getWeeklyPlay();
@@ -320,6 +314,10 @@ export default {
           color: black;
         }
       }
+    }
+    .no-record{
+      font-size: 12px;
+      color: #a8a4a4;
     }
   }
 }

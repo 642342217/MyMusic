@@ -157,13 +157,19 @@ export default {
     },
     computed:{
         isShow(){
-            return this.$store.state.isShowLoginBox;
+            return this.$store.getters.getIsShowLoginBox;
         },
         searchBox() {
             return this.$store.getters.getSearchBoxStatus;
         }
     },
     created() {
+        api.getLoginStatus().then(data => {
+            if(data.data.data.account !== null) {
+                this.$store.commit('changeLoginStatus', true);
+                this.$store.commit('changeShowLoginBox', false);
+            }
+        });
         this.getPersonalInfo();
         this.throughDebouce();
     },

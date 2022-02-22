@@ -42,6 +42,7 @@ const SearchPage = () => import('../components/SearchPage')
 
 Vue.use(VueRouter)
 import store from '../store'
+import api from '../api/index'
 
 const routes = [
   {
@@ -158,16 +159,18 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if(from);
   if(to.meta.requireAuth) {
-    if(store.getters.getLoginStatus) {
-      next();
-    } else {
-      next({
-        name: 'login',
-        params: {
-          redirect: to.fullPath
-        }
-      })
-    }
+    api.getLoginStatus().then(data => {
+        if(data.data.data.account !== null) {
+          next();
+        } else {
+            next({
+              name: 'login',
+              params: {
+                redirect: to.fullPath
+              }
+            })
+          }
+    });
   } else {
     next();
   }

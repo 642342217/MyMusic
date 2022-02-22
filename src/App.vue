@@ -10,16 +10,11 @@
 </template>
 
 <script>
-import Content from './components/Content.vue'
+import Content from './components/Content'
 import Head from './components/Head'
 export default {
   name:"App",
-  components:{Head, Content},
-  data() {
-    return {
-      
-    }
-  },
+  components:{Head, Content}
 }
 </script>
 
