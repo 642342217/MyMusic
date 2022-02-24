@@ -49,6 +49,7 @@ export default {
         //获取推荐音乐
         async getRecommendSong() {
             let {data} = await api.getRecommendSong();
+            console.log(data);
             if(data.code != 200) {
                 alert("无法获取推荐音乐！");
             } else {

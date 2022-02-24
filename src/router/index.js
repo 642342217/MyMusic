@@ -49,6 +49,9 @@ const routes = [
     path: '/',
     redirect: {
       name: 'findmusic'
+    },
+    meta: {
+      keepAlive: true
     }
   },
   // 发现音乐页面
