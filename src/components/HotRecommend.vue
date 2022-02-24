@@ -28,9 +28,11 @@ export default {
     },
     created() {
         api.getLoginStatus().then(data => {
+            console.log(data.data.data.account);
             if(data.data.data.account === null) {
                 this.songInfo.splice(5, this.songInfo.length - 5);
             }
+            console.log(this.songInfo);
         });
     }
         

@@ -1,6 +1,9 @@
 <template>
   <div class="content">
-      <router-view :key="$route.query"></router-view>
+      <keep-alive>
+        <router-view :key="$route.query" v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view :key="$route.query" v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 

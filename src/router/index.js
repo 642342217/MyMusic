@@ -41,7 +41,7 @@ const TopList = () => import('../components/TopList')
 const SearchPage = () => import('../components/SearchPage')
 
 Vue.use(VueRouter)
-import store from '../store'
+// import store from '../store'
 import api from '../api/index'
 
 const routes = [
@@ -55,13 +55,19 @@ const routes = [
   {
     path: '/findmusic',
     component: FindMusic,
-    name: 'findmusic'
+    name: 'findmusic',
+    meta: {
+      keepAlive: true
+    }
   },
   //具体歌手页面
   {
     path: '/artist',
     name: 'artist',
-    component: Songer
+    component: Songer,
+    meta: {
+      keepAlive: true
+    }
   },
   // 歌曲详情页面
   {
@@ -71,7 +77,10 @@ const routes = [
   // 歌单页面
   {
     path: '/playlist',
-    component: PlayList
+    component: PlayList,
+    meta: {
+      keepAlive: true
+    }
   },
   // 歌单详情页面
   {
@@ -79,7 +88,8 @@ const routes = [
     name:'playlist-detail',
     component: PlayListDetail,
     meta: {
-      requireAuth: true     //添加该字段，表示进入该组件，需要登录状态
+      requireAuth: true,     //添加该字段，表示进入该组件，需要登录状态
+      keepAlive: true
     }
   },
   //登录页面
@@ -91,25 +101,37 @@ const routes = [
   // 用户页面
   {
     path: '/user',
-    component: UserDetail
+    component: UserDetail,
+    meta: {
+      keepAlive: true
+    }
   },
   // 歌手页面
   {
     path: '/artists',
     component: Artists,
     redirect: { name: 'recommend' },
+    meta: {
+      keepAlive: true
+    },
     children: [
       //推荐歌手
       {
         path: 'recommend',
         name: 'recommend',
-        component: Recommend
+        component: Recommend,
+        meta: {
+          keepAlive: true
+        }
       },
       // 歌手分类
       {
         path: 'artist-category',
         component: ArtistCategory,
-        name: 'category'
+        name: 'category',
+        meta: {
+          keepAlive: true
+        }
       }
     ]
   },
@@ -118,7 +140,8 @@ const routes = [
     path: '/personal',
     component: Personal,
     meta: {
-      requireAuth: true     //添加该字段，表示进入该组件，需要登录状态
+      requireAuth: true,     //添加该字段，表示进入该组件，需要登录状态
+      keepAlive: true
     }
   },
   //排行榜界面
