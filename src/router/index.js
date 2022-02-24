@@ -115,7 +115,7 @@ const routes = [
     component: Artists,
     redirect: { name: 'recommend' },
     meta: {
-      keepAlive: true
+      keepAlive: false
     },
     children: [
       //推荐歌手
@@ -124,7 +124,7 @@ const routes = [
         name: 'recommend',
         component: Recommend,
         meta: {
-          keepAlive: true
+          keepAlive: false
         }
       },
       // 歌手分类
@@ -133,7 +133,7 @@ const routes = [
         component: ArtistCategory,
         name: 'category',
         meta: {
-          keepAlive: true
+          keepAlive: false
         }
       }
     ]
@@ -150,7 +150,10 @@ const routes = [
   //排行榜界面
   {
     path: '/top-list',
-    component: TopList
+    component: TopList,
+    meta: {
+      keepAlive: true
+    }
   },
   //进入搜索界面
   {

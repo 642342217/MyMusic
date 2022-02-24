@@ -3,7 +3,10 @@
     <div id="app">
     <Head></Head>
     <div class="content">
-      <Content></Content>
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
     </div>
   </div>
   </v-app>
