@@ -6,7 +6,7 @@
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive"></router-view>
       </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive"></router-view>
+      <router-view :key="$route.query" v-if="!$route.meta.keepAlive"></router-view>
     </div>
   </div>
   </v-app>
