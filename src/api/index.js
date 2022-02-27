@@ -42,7 +42,7 @@ axios.defaults.timeout = 30000;
 axios.defaults.baseURL = 'https://netease-cloud-music-api-642342217.vercel.app/'
 
 //请求携带cookie
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = false
 
 export default {
     // 手机号码+密码登录
