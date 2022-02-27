@@ -39,7 +39,7 @@ axios.defaults.timeout = 30000;
 // axios.defaults.baseURL = "http://localhost:3000";
 
 //vercel部署线上地址
-axios.defaults.baseURL = 'https://vercel.com/642342217/netease-cloud-music-api/FGGdxsbTcC1Rnt6as81igc3d8h5T'
+axios.defaults.baseURL = 'https://netease-cloud-music-api-bice-mu.vercel.app/'
 
 //请求携带cookie
 axios.defaults.withCredentials = true
