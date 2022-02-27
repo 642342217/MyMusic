@@ -12,7 +12,7 @@
     </div>
     <div class="input">
         <input type="search" v-model.trim="searchValue" placeholder="周杰伦" 
-        @keyup.enter="toSearchPage" @focus="showSearchBox">
+        @keyup.enter="toSearchPage" @focus="showSearchBox" @blur="hideSearchBox">
     </div>
     <div class="login" @click="login" v-if="! $store.state.hasLogined"><a>登录/注册</a></div>
     <div class="login" @click="logout" v-else><a>退出登录</a></div>
