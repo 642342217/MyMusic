@@ -56,7 +56,12 @@ export default {
     },
     //退出登录
     logout() {
-        return axios.get(logout);
+        let date = new Date();
+        return axios.get(logout, {
+            params: {
+                timestamp: date
+            }
+        });
     },
     //获取轮播图
     getCarousel() {
@@ -76,7 +81,12 @@ export default {
     },
     //获取登录状态
     getLoginStatus() {
-        return axios.get(loginStatus);
+        let date = new Date();
+        return axios.get(loginStatus, {
+            params: {
+                timestamp: date
+            }
+        });
     },
     //获取当前热门歌手
     getHotSonger() {
@@ -258,7 +268,12 @@ export default {
     },
     // 获取个人详情
     getUserAccount() {
-        return axios.get(userAccount);
+        let date = new Date();
+        return axios.get(userAccount, {
+            params: {
+                timestamp: date
+            }
+        });
     },
     //获取最近一周播放歌曲
     getWeeklyPlay(id) {

@@ -194,6 +194,17 @@ export default {
         } else {
             this.getAllPlay();
         }
+    },
+    async allRequest() {
+      let { data } = await api.getUserAccount();
+      if(data.profile) {
+          let { userId } = data.profile;
+          this.$route.query.id = userId;
+          // console.log(this.$route);
+      }
+      this.getDetail();
+      this.getPlayLists();
+      this.getWeeklyPlay();
     }
   },
   computed: {
@@ -203,9 +214,7 @@ export default {
     },
   },
   created() {
-    this.getDetail();
-    this.getPlayLists();
-    this.getWeeklyPlay();
+    this.allRequest();
   },
 };
 </script>

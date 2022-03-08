@@ -8,7 +8,7 @@
         <div><router-link to="/playlist">歌单</router-link></div>
         <div><router-link to="/artists">歌手</router-link></div>
         <div>关注</div>
-        <div><router-link :to="{ path: '/personal', query: { id: id }}">个人中心</router-link></div>
+        <div><router-link :to="{ path: '/personal' }">个人中心</router-link></div>
     </div>
     <div class="input">
         <input type="search" v-model.trim="searchValue" placeholder="周杰伦" 

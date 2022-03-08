@@ -110,7 +110,7 @@ export default {
 
 <style lang="less" scoped>
   .loginBox{
-    z-index: 1;
+    z-index: 100000;
     position: fixed;
     left: 50%;
     top: 50%;
@@ -182,10 +182,9 @@ export default {
       }
       .otherLoginWay{
             position: absolute;
-            z-index: 10000;
             font-size: small;
             right: -259px;
-            top: -46px;
+            bottom: -25px;
             text-decoration: underline;
             cursor: pointer;
       }
