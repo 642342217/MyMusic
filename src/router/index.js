@@ -92,7 +92,7 @@ const routes = [
     component: PlayListDetail,
     meta: {
       requireAuth: true,     //添加该字段，表示进入该组件，需要登录状态
-      keepAlive: true
+      keepAlive: false
     }
   },
   //登录页面
